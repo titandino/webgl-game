@@ -15,3 +15,7 @@ Renderer.prototype.initGL = function() {
     console.log('WebGL unsupported.');
   }
 };
+
+Renderer.prototype.loadShader = function(shaderSource) {
+
+};
