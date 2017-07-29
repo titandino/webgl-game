@@ -1,3 +1,3 @@
 let Game = require('./engine/game');
 
-new Game();
+new Game('game-canvas');
