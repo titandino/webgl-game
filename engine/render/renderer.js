@@ -1,4 +1,4 @@
-import { ShaderManager } from '/engine/util/ShaderManager.js';
+import { ShaderManager } from '/engine/util/shadermanager.js';
 
 class Renderer {
 
@@ -10,7 +10,15 @@ class Renderer {
   initGL = () => {
     this.canvas = document.getElementById(this.canvasId);
     try {
-      this.gl = this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl');
+      this.gl = this.canvas.getContext('webgl2');
+      if (this.gl) {
+        console.log('WebGL 2.0 Initialized');
+      } else {
+        this.gl = this.canvas.getContext('webgl1');
+        if (this.gl) {
+          console.log('WebGL 1.0 Initialized');
+        }
+      }
     } catch (e) {
       console.log(e);
     }

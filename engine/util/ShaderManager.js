@@ -32,7 +32,6 @@ ShaderManager.loadShader = function(file, type) {
 
   if (req.status === 200) {
     cache = { script: req.responseText, type: type };
-    console.log(req.responseText);
   } else {
     console.log('Error: ' + req.status);
   }
