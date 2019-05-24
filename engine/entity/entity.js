@@ -1,4 +1,5 @@
-
+import { Vector2f } from '/engine/math/vector2f.js';
+import { FBO } from '/engine/render/fbo.js';
 
 class Entity {
 
@@ -19,24 +20,24 @@ class Entity {
         position = position.add(velocity.scale(delta));
     }
 
-    render = (gl, shader) => { }
+    render = (shader) => { }
 
-    _render = (gl, shader) => {
+    _render = (shader) => {
         this.mesh.bind();
         this.texture.bind(shader.getUniformLocation('tex'));
 
         //Flip y axis of texture coordinates if it is an FBO as a texture
-        gl.glUniform1i(shader.getUniformLocation('flip'), this.texFbo ? 1 : 0);
+        GL.uniform1i(shader.getUniformLocation('flip'), this.texFbo ? 1 : 0);
 
-        gl.glUniform4fv(shader.getUniformLocation('color'), [ this.color ? 2.0 : this.color.getRed() / 255, this.color ? 2.0 : this.color.getGreen() / 255, this.color ? 2.0 : this.color.getBlue() / 255, this.color ? 2.0 : this.color.getAlpha() / 255 ]);
+        GL.uniform4fv(shader.getUniformLocation('color'), [ !this.color ? 2.0 : this.color.getRed() / 255, !this.color ? 2.0 : this.color.getGreen() / 255, !this.color ? 2.0 : this.color.getBlue() / 255, !this.color ? 2.0 : this.color.getAlpha() / 255 ]);
 
         //Pass transformation to shader
-        gl.glUniform2fv(shader.getUniformLocation('translation'), [ this.position.x, this.position.y ]);
-        gl.glUniform1f(shader.getUniformLocation('rotation'), this.rotation);
-        gl.glUniform2fv(shader.getUniformLocation('scale'), [ this.scale.x, this.scale.y ]);
+        GL.uniform2fv(shader.getUniformLocation('translation'), [ this.position.x, this.position.y ]);
+        GL.uniform1f(shader.getUniformLocation('rotation'), this.rotation);
+        GL.uniform2fv(shader.getUniformLocation('scale'), [ this.scale.x, this.scale.y ]);
 
         //Draw the entity
-        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 0, 4);
+        GL.drawArrays(GL.TRIANGLE_STRIP, 0, 4);
     }
 
     collides = (vec) => {
@@ -51,3 +52,5 @@ class Entity {
         return true;
     }
 }
+
+export { Entity };

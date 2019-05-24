@@ -1,40 +1,41 @@
 class Vector2f {
+
     constructor(x = 0, y = 0) {
         this.x = x;
         this.y = y;
     }
 
-    lengthSquared() {
+    lengthSquared = () => {
         return x * x + y * y;
     }
 
-    length() {
+    length = () => {
         return Math.sqrt(lengthSquared());
     }
     
-    getAngle(vec) {
-        return getRadAngle(vec)*(180/(float) Math.PI);
+    getAngle = (vec) => {
+        return getRadAngle(vec)*(180/Math.PI);
     }
     
-    copy() {
+    copy = () => {
         return new Vector2f(this.x, this.y);
     }
     
-    getRadCos(vec) {
+    getRadCos = (vec) => {
     	let temp1 = this.copy().normalize();
         let temp2 = vec.copy().normalize();
 
         return temp1.dot(temp2);
     }
 
-    getRadSin(vec) {
+    getRadSin = (vec) => {
     	let temp1 = this.copy().normalize();
     	let temp2 = vec.copy().normalize();
 
         return (temp1.x * temp2.y) - (temp1.y * temp2.x);
     }
 
-    getRadAngle(vec) {
+    getRadAngle = (vec) => {
         let sine, cosine, angle;
         let temp = vec;
         let right = new Vector2f(1.0, 0.0);
@@ -42,8 +43,8 @@ class Vector2f {
         sine = right.getRadSin(temp);
         cosine = temp.getRadCos(right);
 
-        sine = (float) Math.asin(sine);
-        cosine = (float) Math.acos(cosine);
+        sine = Math.asin(sine);
+        cosine = Math.acos(cosine);
 
         if (sine < 0) {
             angle = -1 * cosine;
@@ -54,43 +55,43 @@ class Vector2f {
         return angle > 0 ? angle : angle + (2.0 * Math.PI);
     }
 
-    normalize() {
+    normalize = () => {
         return divide(length());
     }
 
-    add(other) {
+    add = (other) => {
         let x = this.x + other.x;
         let y = this.y + other.y;
         return new Vector2f(x, y);
     }
 
-    negate() {
+    negate = () => {
         return scale(-1);
     }
 
-    subtract(other) {
+    subtract = (other) => {
         return this.add(other.negate());
     }
 
-    scale(scalar) {
+    scale = (scalar) => {
         let x = this.x * scalar;
         let y = this.y * scalar;
         return new Vector2f(x, y);
     }
 
-    divide(scalar) {
+    divide = (scalar) => {
         return scale(1 / scalar);
     }
 
-    dot(other) {
+    dot = (other) => {
         return this.x * other.x + this.y * other.y;
     }
 
-    lerp(other, alpha) {
+    lerp = (other, alpha) => {
         return this.scale(1 - alpha).add(other.scale(alpha));
     }
 
-	set(x, y) {
+	set = (x, y) => {
 		this.x = x;
 		this.y = y;
 	}

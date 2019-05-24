@@ -4,19 +4,19 @@ class Texture {
     	this.textureId = textureId;
     }
 
-    bind = (gl) => {
-        gl.glActiveTexture(gl.GL_TEXTURE0);
-        gl.glBindTexture(gl.GL_TEXTURE_2D, this.textureId);
+    bind = () => {
+        GL.activeTexture(GL.GL_TEXTURE0);
+        GL.bindTexture(GL.GL_TEXTURE_2D, this.textureId);
     }
 
-    bind = (gl, uniform) => {
-        gl.glActiveTexture(gl.GL_TEXTURE0);
-        gl.glBindTexture(gl.GL_TEXTURE_2D, this.textureId);
-        gl.glUniform1i(uniform, 0);
+    bind = (uniform) => {
+        GL.activeTexture(GL.GL_TEXTURE0);
+        GL.bindTexture(GL.GL_TEXTURE_2D, this.textureId);
+        GL.uniform1i(uniform, 0);
     }
 
-    release = (gl) => {
-        gl.glDeleteTextures(this.textureId);
+    release = () => {
+        GL.deleteTextures(this.textureId);
     }
 }
 

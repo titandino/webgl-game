@@ -4,19 +4,20 @@ class Game {
 
   constructor(canvasId, startLevel) {
     this.startLevel = startLevel;
-    this.renderer = new Renderer(canvasId);
+    this.renderer = new Renderer(canvasId, startLevel);
+    this.prevFrame = new Date().getTime();
   }
 
   init = () => {
-    requestAnimationFrame(this.render);
-  }
-
-  update = (delta) => {
-
+    this.render();
   }
 
   render = () => {
-    this.renderer.render();
+    let millis = new Date().getTime() - this.prevFrame;
+		let delta = millis / 1000.0;
+    this.prevFrame = new Date().getTime();
+    
+    this.renderer.updateAndRender(delta);
     requestAnimationFrame(this.render);
   }
 }
