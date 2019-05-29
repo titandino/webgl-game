@@ -12,8 +12,8 @@ class Asteroids extends Level {
     }
 
     init = () => {
-        this.background = this.addEntity(new Entity(new Vector2f(1920/2, 1080/2), new Vector2f(1920, 1080), MeshManager.defaultMesh(), TextureManager.loadTexture('background.png')));
-        this.ship = this.addEntity(new Entity(new Vector2f(60, 60), new Vector2f(32, 32), MeshManager.defaultMesh(), TextureManager.loadTexture('ship.png')));
+        this.background = this.addEntity(new Entity(new Vector2f(this.width/2, this.height/2), new Vector2f(this.width, this.height), MeshManager.defaultMesh(), TextureManager.loadTexture('background.png')));
+        this.ship = this.addEntity(new Entity(new Vector2f(this.width/2, this.height/2), new Vector2f(64, 64), MeshManager.defaultMesh(), TextureManager.loadTexture('ship.png')));
     }
 
     update = () => {

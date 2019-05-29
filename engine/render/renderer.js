@@ -65,7 +65,9 @@ class Renderer {
   updateAndRender = (delta) => {    
     //Update and render the level to the FBO
 		this.level._update(delta);
-		this.level._render(this.shader, this.fbo);
+    this.level._render(this.shader, this.fbo);
+    
+    this.view._update(delta);
 
 		//Call the post processing method in case the level has special post processing
 		let newFBO = this.level.postProcess(this.fbo);
@@ -87,7 +89,7 @@ class Renderer {
 		//Calculate the best scale to fit the device's height/width
 		//this.view.scale = new Vector2f(scaledWidth, scaledHeight);
     //this.view.position = new Vector2f(displayWidth / 2, displayHeight / 2);
-    console.log('Resizing: (' + displayWidth + ', ' + displayHeight + ') to (' + scaledWidth + ', ' + scaledHeight + ')');
+    //console.log('Resizing: (' + displayWidth + ', ' + displayHeight + ') to (' + scaledWidth + ', ' + scaledHeight + ')');
 	}
 }
 
