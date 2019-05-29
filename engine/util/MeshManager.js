@@ -2,19 +2,19 @@ import { Mesh } from '/engine/render/mesh.js';
 
 const MeshManager = { };
     
-const SQUARE_VTX = [
-        0, 0,
-        0, 1,
-        1, 0,
-        1, 1,
-    ];
+const SQUARE_VTX = new Float32Array([
+        0.0, 0.0,
+        0.0, 1.0,
+        1.0, 0.0,
+        1.0, 1.0,
+    ]);
 
-const SQUARE_TEX = [
-        0, 1,
-        0, 0,
-        1, 1,
-        1, 0,
-    ];
+const SQUARE_TEX = new Float32Array([
+        0.0, 1.0,
+        0.0, 0.0,
+        1.0, 1.0,
+        1.0, 0.0,
+    ]);
 
 let MESH_CACHE = {};
 

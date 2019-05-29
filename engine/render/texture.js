@@ -5,13 +5,13 @@ class Texture {
     }
 
     bind = () => {
-        GL.activeTexture(GL.GL_TEXTURE0);
-        GL.bindTexture(GL.GL_TEXTURE_2D, this.textureId);
+        GL.activeTexture(GL.TEXTURE0);
+        GL.bindTexture(GL.TEXTURE_2D, this.textureId);
     }
 
     bind = (uniform) => {
-        GL.activeTexture(GL.GL_TEXTURE0);
-        GL.bindTexture(GL.GL_TEXTURE_2D, this.textureId);
+        GL.activeTexture(GL.TEXTURE0);
+        GL.bindTexture(GL.TEXTURE_2D, this.textureId);
         GL.uniform1i(uniform, 0);
     }
 

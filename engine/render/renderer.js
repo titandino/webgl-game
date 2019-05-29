@@ -16,7 +16,7 @@ class Renderer {
     MeshManager.init();
 
     this.fbo = new FBO(1920, 1080);
-    this.view = new Entity(new Vector2f(0, 0), new Vector2f(0, 0), 1, 1, MeshManager.defaultMesh(), this.fbo);
+    this.view = new Entity(new Vector2f(0, 0), new Vector2f(0, 0), 1, 1, MeshManager.defaultMesh(), this.fbo, true);
   }
 
   loadGL = () => {

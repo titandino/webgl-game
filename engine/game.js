@@ -9,6 +9,7 @@ class Game {
   }
 
   init = () => {
+    this.startLevel.init();
     this.render();
   }
 

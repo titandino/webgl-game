@@ -1,28 +1,27 @@
 import { Vector2f } from '/engine/math/vector2f.js';
-import { FBO } from '/engine/render/fbo.js';
 
 class Entity {
 
-    constructor(position, velocity, width, height, mesh, texture) {
+    constructor(position, velocity, width, height, mesh, texture, texFbo = false) {
         this.position = position;
         this.velocity = velocity;
         this.scale = new Vector2f(width, height);
         this.rotation = 0;
         this.mesh = mesh;
         this.texture = texture;
-        this.texFbo = texture instanceof FBO;
+        this.texFbo = texFbo;
     }
 
     update = (delta) => {  }
 
     _update = (delta) => {
-        update(delta);
-        position = position.add(velocity.scale(delta));
+        this.update(delta);
+        this.position = this.position.add(this.velocity.scale(delta));
     }
 
     render = (shader) => { }
 
-    _render = (shader) => {
+    _render = (shader) => {        
         this.mesh.bind();
         this.texture.bind(shader.getUniformLocation('tex'));
 
