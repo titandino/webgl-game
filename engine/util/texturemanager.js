@@ -21,7 +21,7 @@ TextureManager.loadTexture = function(url) {
          GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MIN_FILTER, GL.LINEAR);
       }
     };
-    image.src = url;
+    image.src = '/textures/'+url;
   
     return texture;
   }

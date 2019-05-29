@@ -1,14 +1,14 @@
 const Utils = {};
 
 Utils.glOrtho = function(shader, width, height) {
-    let ortho = [
-            2 / width, 0, 0, -1,
-            0, 2 / height, 0, -1,
-            0, 0, 1, 0,
-            0, 0, 0, 1
-    ];
+    let ortho = new Float32Array([
+            2.0 / width, 0.0, 0.0, -1.0,
+            0.0, 2.0 / height, 0.0, -1.0,
+            0.0, 0.0, 1.0, 0.0,
+            0.0, 0.0, 0.0, 1.0
+    ]);
 
-    GL.uniformMatrix4fv(shader.getUniformLocation("ortho"), true, ortho);
+    GL.uniformMatrix4fv(shader.getUniformLocation('ortho'), true, ortho);
 }
 
 Utils.loadTextAsset = function(path) {

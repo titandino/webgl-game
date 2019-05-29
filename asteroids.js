@@ -12,9 +12,13 @@ class Asteroids extends Level {
     }
 
     init = () => {
-        this.addEntity(new Entity(new Vector2f(1, 1), new Vector2f(0, 0), 24, 24, MeshManager.defaultMesh(), TextureManager.loadTexture('/textures/ship.png')));
+        this.background = this.addEntity(new Entity(new Vector2f(1920/2, 1080/2), new Vector2f(1920, 1080), MeshManager.defaultMesh(), TextureManager.loadTexture('background.png')));
+        this.ship = this.addEntity(new Entity(new Vector2f(60, 60), new Vector2f(32, 32), MeshManager.defaultMesh(), TextureManager.loadTexture('ship.png')));
     }
 
+    update = () => {
+        this.ship.rotation += 0.5;
+    }
 }
 
 export { Asteroids };

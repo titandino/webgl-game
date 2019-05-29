@@ -59,6 +59,7 @@ class Level {
 
     addEntity = (entity) => {
         this.entities.push(entity);
+        return entity;
     }
 
     removeEntity = (entity) => {

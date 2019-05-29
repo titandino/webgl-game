@@ -1,8 +1,13 @@
 #version 300 es
 
-precision mediump float;
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+    precision highp float;
+#else
+    precision mediump float;
+#endif
+    precision mediump int;
 
-const float degToRad = 3.1415926535897932384626433832795f / 180.0f;
+const float degToRad = 3.1415926535897932384626433832795f / 180.0;
 
 uniform mat4 ortho;
 uniform vec2 translation;
@@ -16,33 +21,33 @@ out vec4 texCoord;
 
 mat4 scaleMtx(vec2 s) {
     mat4 m;
-    m[0][0] = s.x;  m[1][0] = 0.0f;  m[2][0] = 0.0f;  m[3][0] = 0.0f;
-    m[0][1] = 0.0f;  m[1][1] = s.y;  m[2][1] = 0.0f;  m[3][1] = 0.0f;
-    m[0][2] = 0.0f;  m[1][2] = 0.0f;  m[2][2] = 1.0f;  m[3][2] = 0.0f;
-    m[0][3] = 0.0f;  m[1][3] = 0.0f;  m[2][3] = 0.0f;  m[3][3] = 1.0f;
+    m[0][0] = s.x;  m[1][0] = 0.0;  m[2][0] = 0.0;  m[3][0] = 0.0;
+    m[0][1] = 0.0;  m[1][1] = s.y;  m[2][1] = 0.0;  m[3][1] = 0.0;
+    m[0][2] = 0.0;  m[1][2] = 0.0;  m[2][2] = 1.0;  m[3][2] = 0.0;
+    m[0][3] = 0.0;  m[1][3] = 0.0;  m[2][3] = 0.0;  m[3][3] = 1.0;
     return m;
 }
 
 mat4 translateMtx(vec2 t) {
     mat4 m;
-    m[0][0] = 1.0f;  m[1][0] = 0.0f;  m[2][0] = 0.0f;  m[3][0] = t.x;
-    m[0][1] = 0.0f;  m[1][1] = 1.0f;  m[2][1] = 0.0f;  m[3][1] = t.y;
-    m[0][2] = 0.0f;  m[1][2] = 0.0f;  m[2][2] = 1.0f;  m[3][2] = 0.0f;
-    m[0][3] = 0.0f;  m[1][3] = 0.0f;  m[2][3] = 0.0f;  m[3][3] = 1.0f;
+    m[0][0] = 1.0;  m[1][0] = 0.0;  m[2][0] = 0.0;  m[3][0] = t.x;
+    m[0][1] = 0.0;  m[1][1] = 1.0;  m[2][1] = 0.0;  m[3][1] = t.y;
+    m[0][2] = 0.0;  m[1][2] = 0.0;  m[2][2] = 1.0;  m[3][2] = 0.0;
+    m[0][3] = 0.0;  m[1][3] = 0.0;  m[2][3] = 0.0;  m[3][3] = 1.0;
     return m;
 }
 
 mat4 rotateZMtx(float a) {
     mat4 m;
-    m[0][0] = cos(a);  m[1][0] = -sin(a);  m[2][0] = 0.0f;  m[3][0] = 0.0f;
-    m[0][1] = sin(a);  m[1][1] = cos(a);  m[2][1] = 0.0f;  m[3][1] = 0.0f;
-    m[0][2] = 0.0f;  m[1][2] = 0.0f;  m[2][2] = 1.0f;  m[3][2] = 0.0f;
-    m[0][3] = 0.0f;  m[1][3] = 0.0f;  m[2][3] = 0.0f;  m[3][3] = 1.0f;
+    m[0][0] = cos(a);  m[1][0] = -sin(a);  m[2][0] = 0.0;  m[3][0] = 0.0;
+    m[0][1] = sin(a);  m[1][1] = cos(a);  m[2][1] = 0.0;  m[3][1] = 0.0;
+    m[0][2] = 0.0;  m[1][2] = 0.0;  m[2][2] = 1.0;  m[3][2] = 0.0;
+    m[0][3] = 0.0;  m[1][3] = 0.0;  m[2][3] = 0.0;  m[3][3] = 1.0;
     return m;
 }
 
 void main() {
     texCoord = texCoordIn;
-    mat4 transform = translateMtx(translation) * rotateZMtx(rotation*degToRad) * translateMtx(-scale / 2.0f) * scaleMtx(scale);
+    mat4 transform = translateMtx(translation) * rotateZMtx(rotation*degToRad) * translateMtx(-scale / 2.0) * scaleMtx(scale);
     gl_Position = ortho * transform * vec4(positionIn.xy, 0.0, 1.0);
 }

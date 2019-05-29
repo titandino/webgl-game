@@ -15,8 +15,8 @@ class Renderer {
     this.initGL();
     MeshManager.init();
 
-    this.fbo = new FBO(1920, 1080);
-    this.view = new Entity(new Vector2f(0, 0), new Vector2f(0, 0), 1, 1, MeshManager.defaultMesh(), this.fbo, true);
+    this.fbo = new FBO(this.level.width, this.level.height);
+    this.view = new Entity(new Vector2f(1920/2, 1080/2), new Vector2f(1920, 1080), MeshManager.defaultMesh(), this.fbo, true);
   }
 
   loadGL = () => {
@@ -41,20 +41,21 @@ class Renderer {
       console.log('WebGL unsupported.');
     } else {
       GL.clearColor(0.0, 0.0, 0.0, 1.0);
-      GL.enable(GL.DEPTH_TEST, GL.BLEND);
+      GL.enable(GL.BLEND);
 		  GL.blendFunc(GL.SRC_ALPHA, GL.ONE_MINUS_SRC_ALPHA);
-      GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
       GL.viewport(0, 0, this.canvas.width, this.canvas.height);
     }
   }
 
   renderView = () => {
 		//Bind render shader
-		this.shader.use();
+    this.shader.use();
+    
+    this.resizeScreen();
 		//Set orthogonal matrix/glViewport to the screen width
 		//glOrtho(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT, -1, 1);
-		Utils.glOrtho(this.shader, 1920, 1080);
-		GL.viewport(0, 0, 1920, 1080);
+		Utils.glOrtho(this.shader, this.view.scale.x, this.view.scale.y);
+		GL.viewport(0, 0, this.view.scale.x, this.view.scale.y);
 		GL.clear(GL.COLOR_BUFFER_BIT);
 		//Render the fbo to the view entity
 		this.view._render(this.shader);
@@ -74,15 +75,20 @@ class Renderer {
 		this.renderView();
   }
 
-  checkResize = () => {
-    let displayWidth  = this.canvas.clientWidth;
+  resizeScreen = () => {
+		let displayWidth  = this.canvas.clientWidth;
     let displayHeight = this.canvas.clientHeight;
-   
-    if (this.canvas.width  != displayWidth || this.canvas.height != displayHeight) {
-      this.canvas.width  = displayWidth;
-      this.canvas.height = displayHeight;
-    }
-  }
+
+		let ratio = displayWidth / this.level.width;
+
+		let scaledWidth = ratio * this.level.width;
+		let scaledHeight = ratio * this.level.height;
+
+		//Calculate the best scale to fit the device's height/width
+		//this.view.scale = new Vector2f(scaledWidth, scaledHeight);
+    //this.view.position = new Vector2f(displayWidth / 2, displayHeight / 2);
+    console.log('Resizing: (' + displayWidth + ', ' + displayHeight + ') to (' + scaledWidth + ', ' + scaledHeight + ')');
+	}
 }
 
 export { Renderer };
